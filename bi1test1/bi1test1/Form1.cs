@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace bi1test1
 {
-    public partial class Form1 : Form
+    public partial class BusinessIntelligenceCharts : Form
     {
-        public Form1()
+        public BusinessIntelligenceCharts()
         {
             InitializeComponent();
         }
