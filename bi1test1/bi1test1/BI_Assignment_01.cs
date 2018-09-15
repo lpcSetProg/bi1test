@@ -41,7 +41,7 @@ namespace bi1test1
             InitializeDataGrids();
 
             // for testing remove after 
-            tabControl_Main.SelectTab(1);
+            //tabControl_Main.SelectTab(1);
         }
 
         /*
@@ -54,7 +54,11 @@ namespace bi1test1
         {
             InitializePieChart();
             InitializeLineChart();
+            InitializeControlChart();
+            InitializeParetoChart();
         }
+
+      
 
         /*
         * Method     : 
@@ -77,7 +81,8 @@ namespace bi1test1
         private void InitializePieChart()
         {
             chart_PieChart.Titles.Add("Pie Chart");
-            chart_PieChart.Titles.Add("Second");
+            chart_PieChart.Titles[0].Alignment = ContentAlignment.MiddleCenter;
+            //chart_PieChart.Titles.Add("Second");
             chart_PieChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
         }
 
@@ -87,10 +92,34 @@ namespace bi1test1
         * Parameters : N/A
         * Returns    : N?A
         */
+        private void InitializeControlChart()
+        {
+
+        }
+
+        /*
+        * Method     : 
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void InitializeParetoChart()
+        {
+           
+        }
+
+        /*
+    
+        /*
+        * Method     : 
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
         private void InitializeLineChart()
         {
             chart_LineChart.Titles.Add("Line Chart");
-            chart_LineChart.Titles.Add("Second");
+            //chart_LineChart.Titles.Add("Second");
             chart_LineChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
         }
 
@@ -102,7 +131,22 @@ namespace bi1test1
         */
         private void initializeDataGridView_PieChart()
         {
-           
+            chart_PieChart.Series[0].XValueMember = "X";
+            chart_PieChart.Series[0].YValueMembers = "Y";
+
+            dataTable_Pie.Columns.Add("X");
+            dataTable_Pie.Columns.Add("Y");
+
+            dataGridView_PieChart.Anchor = AnchorStyles.Top;
+            dataGridView_PieChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView_PieChart.DataSource = dataTable_Pie;
+            chart_PieChart.DataSource = dataTable_Pie;
+
+            // Bind data 
+            chart_PieChart.DataBind();
+
+            dataTable_Pie.RowChanged += DataTable_Pie_RowChanged;
         }
 
         /*
@@ -113,11 +157,14 @@ namespace bi1test1
         */
         private void initializeDataGridView_LineChart()
         {
-            chart_LineChart.Series[0].XValueMember = "Month";
-            chart_LineChart.Series[0].YValueMembers = "Sales";
+            chart_LineChart.Series[0].XValueMember = "X";
+            chart_LineChart.Series[0].YValueMembers = "Y";
 
-            dataTable_Line.Columns.Add("Month");
-            dataTable_Line.Columns.Add("Sales");
+            dataTable_Line.Columns.Add("X");
+            dataTable_Line.Columns.Add("Y");
+
+            dataGridView_LineChart.Anchor = AnchorStyles.Top;
+            dataGridView_LineChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dataGridView_LineChart.DataSource = dataTable_Line;
             chart_LineChart.DataSource = dataTable_Line;
@@ -144,6 +191,17 @@ namespace bi1test1
         {
             chart_LineChart.DataBind();
             //throw new System.NotImplementedException();
+        }
+
+        /*
+        * Method     : 
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void DataTable_Pie_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            chart_PieChart.DataBind();
         }
 
     }
