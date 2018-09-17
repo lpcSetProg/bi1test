@@ -204,5 +204,20 @@ namespace bi1test1
             chart_PieChart.DataBind();
         }
 
+        /*
+        * Method     : 
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void button_ClearCharts_Click(object sender, EventArgs e)
+        {
+            foreach (var series in chart_LineChart.Series)
+            {
+                series.Points.Clear();
+                //while (chart1.Series.Count > 0) { chart1.Series.RemoveAt(0); }
+            }
+
+        }
     }
 }

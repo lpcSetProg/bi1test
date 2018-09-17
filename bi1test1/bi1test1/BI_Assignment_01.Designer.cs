@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tabPage_PieChart = new System.Windows.Forms.TabPage();
             this.dataGridView_PieChart = new System.Windows.Forms.DataGridView();
@@ -48,11 +48,12 @@
             this.dataGridView_LineChart = new System.Windows.Forms.DataGridView();
             this.chart_LineChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage_ControlChart = new System.Windows.Forms.TabPage();
-            this.tabPage_ParetoChart = new System.Windows.Forms.TabPage();
             this.dataGridView_ControlChart = new System.Windows.Forms.DataGridView();
             this.chart_ControlChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage_ParetoChart = new System.Windows.Forms.TabPage();
             this.dataGridView_ParetoChart = new System.Windows.Forms.DataGridView();
             this.chart_ParetoChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button_ClearCharts = new System.Windows.Forms.Button();
             this.tabControl_Main.SuspendLayout();
             this.tabPage_PieChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_PieChart)).BeginInit();
@@ -61,9 +62,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_LineChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_LineChart)).BeginInit();
             this.tabPage_ControlChart.SuspendLayout();
-            this.tabPage_ParetoChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ControlChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_ControlChart)).BeginInit();
+            this.tabPage_ParetoChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ParetoChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_ParetoChart)).BeginInit();
             this.SuspendLayout();
@@ -95,23 +96,23 @@
             // dataGridView_PieChart
             // 
             this.dataGridView_PieChart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_PieChart.Location = new System.Drawing.Point(350, 0);
+            this.dataGridView_PieChart.Location = new System.Drawing.Point(350, 1);
             this.dataGridView_PieChart.Name = "dataGridView_PieChart";
-            this.dataGridView_PieChart.Size = new System.Drawing.Size(317, 378);
+            this.dataGridView_PieChart.Size = new System.Drawing.Size(317, 383);
             this.dataGridView_PieChart.TabIndex = 1;
             // 
             // chart_PieChart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart_PieChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart_PieChart.Legends.Add(legend1);
-            this.chart_PieChart.Location = new System.Drawing.Point(3, 0);
+            chartArea5.Name = "ChartArea1";
+            this.chart_PieChart.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart_PieChart.Legends.Add(legend5);
+            this.chart_PieChart.Location = new System.Drawing.Point(3, 1);
             this.chart_PieChart.Name = "chart_PieChart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart_PieChart.Series.Add(series1);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chart_PieChart.Series.Add(series5);
             this.chart_PieChart.Size = new System.Drawing.Size(350, 378);
             this.chart_PieChart.TabIndex = 0;
             this.chart_PieChart.Text = "chart1";
@@ -138,16 +139,16 @@
             // 
             // chart_LineChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart_LineChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart_LineChart.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.chart_LineChart.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chart_LineChart.Legends.Add(legend6);
             this.chart_LineChart.Location = new System.Drawing.Point(3, 0);
             this.chart_LineChart.Name = "chart_LineChart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart_LineChart.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chart_LineChart.Series.Add(series6);
             this.chart_LineChart.Size = new System.Drawing.Size(350, 378);
             this.chart_LineChart.TabIndex = 2;
             this.chart_LineChart.Text = "chart2";
@@ -163,6 +164,30 @@
             this.tabPage_ControlChart.Text = "Control Chart";
             this.tabPage_ControlChart.UseVisualStyleBackColor = true;
             // 
+            // dataGridView_ControlChart
+            // 
+            this.dataGridView_ControlChart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_ControlChart.Location = new System.Drawing.Point(349, 1);
+            this.dataGridView_ControlChart.Name = "dataGridView_ControlChart";
+            this.dataGridView_ControlChart.Size = new System.Drawing.Size(317, 378);
+            this.dataGridView_ControlChart.TabIndex = 3;
+            // 
+            // chart_ControlChart
+            // 
+            chartArea7.Name = "ChartArea1";
+            this.chart_ControlChart.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.chart_ControlChart.Legends.Add(legend7);
+            this.chart_ControlChart.Location = new System.Drawing.Point(2, 1);
+            this.chart_ControlChart.Name = "chart_ControlChart";
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chart_ControlChart.Series.Add(series7);
+            this.chart_ControlChart.Size = new System.Drawing.Size(350, 378);
+            this.chart_ControlChart.TabIndex = 2;
+            this.chart_ControlChart.Text = "chart1";
+            // 
             // tabPage_ParetoChart
             // 
             this.tabPage_ParetoChart.Controls.Add(this.dataGridView_ParetoChart);
@@ -174,30 +199,6 @@
             this.tabPage_ParetoChart.Text = "Pareto Chart";
             this.tabPage_ParetoChart.UseVisualStyleBackColor = true;
             // 
-            // dataGridView_ControlChart
-            // 
-            this.dataGridView_ControlChart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_ControlChart.Location = new System.Drawing.Point(349, 1);
-            this.dataGridView_ControlChart.Name = "dataGridView_ControlChart";
-            this.dataGridView_ControlChart.Size = new System.Drawing.Size(317, 378);
-            this.dataGridView_ControlChart.TabIndex = 3;
-            // 
-            // chart_ControlChart
-            // 
-            chartArea3.Name = "ChartArea1";
-            this.chart_ControlChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart_ControlChart.Legends.Add(legend3);
-            this.chart_ControlChart.Location = new System.Drawing.Point(2, 1);
-            this.chart_ControlChart.Name = "chart_ControlChart";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart_ControlChart.Series.Add(series3);
-            this.chart_ControlChart.Size = new System.Drawing.Size(350, 378);
-            this.chart_ControlChart.TabIndex = 2;
-            this.chart_ControlChart.Text = "chart1";
-            // 
             // dataGridView_ParetoChart
             // 
             this.dataGridView_ParetoChart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -208,25 +209,36 @@
             // 
             // chart_ParetoChart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart_ParetoChart.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart_ParetoChart.Legends.Add(legend4);
+            chartArea8.Name = "ChartArea1";
+            this.chart_ParetoChart.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.chart_ParetoChart.Legends.Add(legend8);
             this.chart_ParetoChart.Location = new System.Drawing.Point(2, 1);
             this.chart_ParetoChart.Name = "chart_ParetoChart";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart_ParetoChart.Series.Add(series4);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chart_ParetoChart.Series.Add(series8);
             this.chart_ParetoChart.Size = new System.Drawing.Size(350, 378);
             this.chart_ParetoChart.TabIndex = 2;
             this.chart_ParetoChart.Text = "chart1";
+            // 
+            // button_ClearCharts
+            // 
+            this.button_ClearCharts.Location = new System.Drawing.Point(0, 405);
+            this.button_ClearCharts.Name = "button_ClearCharts";
+            this.button_ClearCharts.Size = new System.Drawing.Size(668, 45);
+            this.button_ClearCharts.TabIndex = 1;
+            this.button_ClearCharts.Text = "Clear Charts";
+            this.button_ClearCharts.UseVisualStyleBackColor = true;
+            this.button_ClearCharts.Click += new System.EventHandler(this.button_ClearCharts_Click);
             // 
             // BusinessIntelligenceCharts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 402);
+            this.ClientSize = new System.Drawing.Size(669, 450);
+            this.Controls.Add(this.button_ClearCharts);
             this.Controls.Add(this.tabControl_Main);
             this.Name = "BusinessIntelligenceCharts";
             this.Text = "Business Intelligence Chart Demo";
@@ -238,9 +250,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_LineChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_LineChart)).EndInit();
             this.tabPage_ControlChart.ResumeLayout(false);
-            this.tabPage_ParetoChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ControlChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_ControlChart)).EndInit();
+            this.tabPage_ParetoChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ParetoChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_ParetoChart)).EndInit();
             this.ResumeLayout(false);
@@ -262,6 +274,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_ControlChart;
         private System.Windows.Forms.DataGridView dataGridView_ParetoChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_ParetoChart;
+        private System.Windows.Forms.Button button_ClearCharts;
     }
 }
 
