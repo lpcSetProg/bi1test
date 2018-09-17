@@ -22,7 +22,7 @@ namespace bi1test1
 {
     public partial class BusinessIntelligenceCharts : Form
     {
-        // global objects for data tables
+        // Create new global DataTables for each chart style.
         DataTable dataTable_Pie = new DataTable();
         DataTable dataTable_Line = new DataTable();
         DataTable dataTable_Control = new DataTable();
@@ -39,9 +39,6 @@ namespace bi1test1
             InitializeComponent();
             InitializeCharts();
             InitializeDataGrids();
-
-            // for testing remove after 
-            //tabControl_Main.SelectTab(1);
         }
 
         /*
@@ -69,7 +66,8 @@ namespace bi1test1
         private void InitializeDataGrids()
         {
             initializeDataGridView_PieChart();
-            initializeDataGridView_LineChart();    
+            initializeDataGridView_LineChart();
+            initializeDataGridView_ParetoChart();
         }
 
         /*
@@ -87,31 +85,38 @@ namespace bi1test1
         }
 
         /*
-        * Method     : 
+        * Method     : InitializeControlChart
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
         */
         private void InitializeControlChart()
         {
-
+           // https://www.codeproject.com/Articles/796278/Control-Chart-Using-Net
         }
 
         /*
-        * Method     : 
+        * Method     : InitializeParetoChart
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
         */
         private void InitializeParetoChart()
         {
-           
+            //https://stackoverflow.com/questions/30662584/percent-value-in-y-axis-of-column-chart-microsoft-chart-control
+            //https://www.codeproject.com/Articles/802845/Pareto-Chart-Csharp
+
+            chart_ParetoChart.Titles.Add("Pareto Chart");
+            //chart_LineChart.Titles.Add("Second");
+            chart_ParetoChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+            // add series
+       
         }
 
         /*
     
         /*
-        * Method     : 
+        * Method     : InitializeLineChart
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -124,7 +129,7 @@ namespace bi1test1
         }
 
         /*
-        * Method     : 
+        * Method     : initializeDataGridView_PieChart
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -150,7 +155,7 @@ namespace bi1test1
         }
 
         /*
-        * Method     : 
+        * Method     : initializeDataGridView_LineChart
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -177,7 +182,40 @@ namespace bi1test1
             //dataGridView_LineChart.AutoSize = true;
             //dataGridView_LineChart.DataSource = bindingSource1;
             dataTable_Line.RowChanged += Dt_RowChanged;
+
+          
         }
+
+      
+
+        /*
+        * Method     : initializeDataGridView_ParetoChart
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void initializeDataGridView_ParetoChart()
+        {
+            chart_ParetoChart.Series[0].XValueMember = "X";
+            chart_ParetoChart.Series[0].YValueMembers = "Y";
+
+            dataTable_Pareto.Columns.Add("X");
+            dataTable_Pareto.Columns.Add("Y");
+
+            dataGridView_ParetoChart.Anchor = AnchorStyles.Top;
+            dataGridView_ParetoChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView_ParetoChart.DataSource = dataTable_Pareto;
+            chart_ParetoChart.DataSource = dataTable_Pareto;
+
+            // Bind data 
+            chart_ParetoChart.DataBind();
+
+           // dataTable_Pareto.
+
+        }
+
+     
 
 
         // Events 
