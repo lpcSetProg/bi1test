@@ -28,21 +28,29 @@ namespace bi1test1
         DataTable dataTable_Control = new DataTable();
         DataTable dataTable_Pareto = new DataTable();
 
+
+
         /*
-        * Method     : 
+        * Method     : BusinessIntelligenceCharts()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
         */
         public BusinessIntelligenceCharts()
         {
+            // Format form for UI controls
+            MaximizeBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+
+            // Initialize data
             InitializeComponent();
             InitializeCharts();
             InitializeDataGrids();
+
         }
 
         /*
-        * Method     : 
+        * Method     : InitializeCharts()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -55,10 +63,8 @@ namespace bi1test1
             InitializeParetoChart();
         }
 
-      
-
         /*
-        * Method     : 
+        * Method     : InitializeDataGrids()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -67,11 +73,12 @@ namespace bi1test1
         {
             initializeDataGridView_PieChart();
             initializeDataGridView_LineChart();
+            initializeDataGridView_ControlChart();
             initializeDataGridView_ParetoChart();
         }
 
         /*
-        * Method     : 
+        * Method     : InitializePieChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -85,18 +92,21 @@ namespace bi1test1
         }
 
         /*
-        * Method     : InitializeControlChart
+        * Method     : InitializeControlChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
         */
         private void InitializeControlChart()
         {
-           // https://www.codeproject.com/Articles/796278/Control-Chart-Using-Net
+            // https://www.codeproject.com/Articles/796278/Control-Chart-Using-Net
+            chart_ControlChart.Titles.Add("Control Chart");
+            chart_ControlChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
         }
 
         /*
-        * Method     : InitializeParetoChart
+        * Method     : InitializeParetoChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -107,16 +117,13 @@ namespace bi1test1
             //https://www.codeproject.com/Articles/802845/Pareto-Chart-Csharp
 
             chart_ParetoChart.Titles.Add("Pareto Chart");
-            //chart_LineChart.Titles.Add("Second");
             chart_ParetoChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
             // add series
        
         }
 
         /*
-    
-        /*
-        * Method     : InitializeLineChart
+        * Method     : InitializeLineChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -124,12 +131,11 @@ namespace bi1test1
         private void InitializeLineChart()
         {
             chart_LineChart.Titles.Add("Line Chart");
-            //chart_LineChart.Titles.Add("Second");
             chart_LineChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
         }
 
         /*
-        * Method     : initializeDataGridView_PieChart
+        * Method     : initializeDataGridView_PieChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -155,7 +161,7 @@ namespace bi1test1
         }
 
         /*
-        * Method     : initializeDataGridView_LineChart
+        * Method     : initializeDataGridView_LineChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -183,13 +189,38 @@ namespace bi1test1
             //dataGridView_LineChart.DataSource = bindingSource1;
             dataTable_Line.RowChanged += Dt_RowChanged;
 
-          
         }
 
-      
-
         /*
-        * Method     : initializeDataGridView_ParetoChart
+        * Method     : initializeDataGridView_PieChart()
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void initializeDataGridView_ControlChart()
+        {
+            chart_ControlChart.Series[0].XValueMember = "X";
+            chart_ControlChart.Series[0].YValueMembers = "Y";
+
+            dataTable_Control.Columns.Add("X");
+            dataTable_Control.Columns.Add("Y");
+
+            dataGridView_ControlChart.Anchor = AnchorStyles.Top;
+            dataGridView_ControlChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView_ControlChart.DataSource = dataTable_Control;
+            chart_ControlChart.DataSource = dataTable_Control;
+
+            // Bind data 
+            chart_ControlChart.DataBind();
+
+            dataTable_Control.RowChanged += DataTable_Control_RowChanged;
+
+        }
+
+     
+        /*
+        * Method     : initializeDataGridView_ParetoChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -211,16 +242,15 @@ namespace bi1test1
             // Bind data 
             chart_ParetoChart.DataBind();
 
-           // dataTable_Pareto.
-
+            dataTable_Pareto.RowChanged += DataTable_Pareto_RowChanged;
         }
 
-     
+      
 
+        // Events //
 
-        // Events 
         /*
-        * Method     : 
+        * Method     : DT_RowChanged()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -232,7 +262,7 @@ namespace bi1test1
         }
 
         /*
-        * Method     : 
+        * Method     : DataTable_Pie_RowChanged()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -243,7 +273,30 @@ namespace bi1test1
         }
 
         /*
-        * Method     : 
+       * Method     : DataTable_Control_RowChanged()
+       * Description: 
+       * Parameters : N/A
+       * Returns    : N?A
+       */
+        private void DataTable_Control_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            chart_ControlChart.DataBind();
+        }
+
+        /*
+        * Method     : DataTable_Pareto_RowChanged()
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void DataTable_Pareto_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            chart_ParetoChart.DataBind();
+        }
+
+
+        /*
+        * Method     : button_ClearCharts_Click()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -253,8 +306,10 @@ namespace bi1test1
             foreach (var series in chart_LineChart.Series)
             {
                 series.Points.Clear();
-                //while (chart1.Series.Count > 0) { chart1.Series.RemoveAt(0); }
             }
+
+            dataTable_Line.Rows.Clear();
+            chart_LineChart.DataBind();
 
         }
     }
