@@ -106,24 +106,59 @@ namespace bi1test1
             // rename series one 
             chart_ControlChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 
+            // add circle style marks 
+            chart_ControlChart.Series[0].MarkerStyle = MarkerStyle.Circle;
 
-            //chart_ControlChart.Series.Add("Average");
-            //chart_ControlChart.Series["Average"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            // Add average strip line to chart
 
-            chart_ControlChart.Series.Add("Lower Control Limit");
-            chart_ControlChart.Series["Lower Control Limit"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            //int value = Int32.Parse(textBox_Average.Text);
 
-            chart_ControlChart.Series.Add("Upper Control Limit");
-            chart_ControlChart.Series["Upper Control Limit"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+         
 
-            chart_ControlChart.Series.Add("Centerline");
-            chart_ControlChart.Series["Centerline"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            StripLine stripline_ControlLine = new StripLine();
+            stripline_ControlLine.Interval = 0;
+            stripline_ControlLine.IntervalOffset = 50; // average value of the y axis; eg:
+            // get strip line on event change -- > 
+            stripline_ControlLine.StripWidth = 1;
+            stripline_ControlLine.BackColor = Color.Black;
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_ControlLine);
+
+            // Add Lower Control Limit strip line to chart 
+            StripLine stripline_LowerControlLimit = new StripLine();
+            stripline_LowerControlLimit.Interval = 0;
+            stripline_LowerControlLimit.IntervalOffset = 5; // average value of the y axis; eg:
+            stripline_LowerControlLimit.StripWidth = 1;
+            stripline_LowerControlLimit.BackColor = Color.Red;
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_LowerControlLimit);
+
+            // Add Upper Control Limit strip line to chart 
+            StripLine stripline_UpperControlLimit = new StripLine();
+            stripline_LowerControlLimit.Interval = 0;
+            stripline_LowerControlLimit.IntervalOffset = 90; // average value of the y axis; eg:
+            stripline_LowerControlLimit.StripWidth = 1;
+            stripline_LowerControlLimit.BackColor = Color.Red;
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_UpperControlLimit);
+
+
+            // make strip lines
+            // change 
+            // https://stackoverflow.com/questions/21990022/add-horizontal-line-to-chart-in-c-sharp
 
             // get rid of x axis?
             chart_ControlChart.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
 
             // x axis is called POINT PABELS
-            // y axis is called TIME ORDER of PRoduction 
+            // y axis is called TIME ORDER of PRoduction
+
+            numericUpDown_ControlLine.ValueChanged += NumericUpDown_ControlLine_ValueChanged;
+
+        }
+
+        private void NumericUpDown_ControlLine_ValueChanged(object sender, EventArgs e)
+        {
+            decimal controlLineValue = numericUpDown_ControlLine.Value;
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines[0].IntervalOffset = decimal.ToDouble(controlLineValue); // average value of the y axis; eg:
+            // figure out where to add in index 
 
         }
 
@@ -156,6 +191,7 @@ namespace bi1test1
         {
             chart_LineChart.Titles.Add("Line Chart");
             chart_LineChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart_LineChart.Series[0].MarkerStyle = MarkerStyle.Circle;
         }
 
         /*
@@ -238,6 +274,9 @@ namespace bi1test1
             chart_ControlChart.DataBind();
 
             dataTable_Control.RowChanged += DataTable_Control_RowChanged;
+
+            // strip line 
+
 
         }
 
