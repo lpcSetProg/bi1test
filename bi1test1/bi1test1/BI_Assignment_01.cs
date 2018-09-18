@@ -28,7 +28,7 @@ namespace bi1test1
         DataTable dataTable_Control = new DataTable();
         DataTable dataTable_Pareto = new DataTable();
 
-
+  
 
         /*
         * Method     : BusinessIntelligenceCharts()
@@ -99,9 +99,31 @@ namespace bi1test1
         */
         private void InitializeControlChart()
         {
+            // https://stackoverflow.com/questions/20673835/chart-control-data-series
             // https://www.codeproject.com/Articles/796278/Control-Chart-Using-Net
             chart_ControlChart.Titles.Add("Control Chart");
+
+            // rename series one 
             chart_ControlChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+
+            //chart_ControlChart.Series.Add("Average");
+            //chart_ControlChart.Series["Average"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            chart_ControlChart.Series.Add("Lower Control Limit");
+            chart_ControlChart.Series["Lower Control Limit"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            chart_ControlChart.Series.Add("Upper Control Limit");
+            chart_ControlChart.Series["Upper Control Limit"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            chart_ControlChart.Series.Add("Centerline");
+            chart_ControlChart.Series["Centerline"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            // get rid of x axis?
+            chart_ControlChart.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
+
+            // x axis is called POINT PABELS
+            // y axis is called TIME ORDER of PRoduction 
 
         }
 
@@ -119,7 +141,9 @@ namespace bi1test1
             chart_ParetoChart.Titles.Add("Pareto Chart");
             chart_ParetoChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
             // add series
-       
+
+            chart_ParetoChart.Series.Add("Target Line");
+            chart_ParetoChart.Series["Target Line"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
         }
 
         /*
@@ -180,7 +204,6 @@ namespace bi1test1
             dataGridView_LineChart.DataSource = dataTable_Line;
             chart_LineChart.DataSource = dataTable_Line;
 
-            // name of c
             chart_LineChart.DataBind();
             //// bind chart view to datasource as well
             //!!!! ondatachange event handler for row changed data table; 
@@ -192,7 +215,7 @@ namespace bi1test1
         }
 
         /*
-        * Method     : initializeDataGridView_PieChart()
+        * Method     : initializeDataGridView_ControlChart()
         * Description: 
         * Parameters : N/A
         * Returns    : N?A
@@ -218,10 +241,9 @@ namespace bi1test1
 
         }
 
-     
         /*
         * Method     : initializeDataGridView_ParetoChart()
-        * Description: 
+        * Description: https://www.youtube.com/watch?v=R_VOAu2BqCk
         * Parameters : N/A
         * Returns    : N?A
         */
@@ -246,7 +268,6 @@ namespace bi1test1
         }
 
       
-
         // Events //
 
         /*
@@ -311,6 +332,31 @@ namespace bi1test1
             dataTable_Line.Rows.Clear();
             chart_LineChart.DataBind();
 
+
+            foreach (var series in chart_PieChart.Series)
+            {
+                series.Points.Clear();
+            }
+
+            dataTable_Pie.Rows.Clear();
+            chart_PieChart.DataBind();
+
+            foreach (var series in chart_ControlChart.Series)
+            {
+                series.Points.Clear();
+            }
+
+            dataTable_Control.Rows.Clear();
+            chart_ControlChart.DataBind();
+
+
+            foreach (var series in chart_ParetoChart.Series)
+            {
+                series.Points.Clear();
+            }
+
+            dataTable_Pareto.Rows.Clear();
+            chart_ParetoChart.DataBind();
         }
     }
 }
