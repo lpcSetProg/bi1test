@@ -1,5 +1,5 @@
 ﻿/*
-* FILE : .cs
+* FILE : BI_Assignment_01.cs
 * PROJECT : PROG3240 - Business Intelligence - Assignment 1
 * PROGRAMMERS : Lev Cocarell
 * FIRST VERSION : 2018-09-12
@@ -9,13 +9,8 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -30,7 +25,6 @@ namespace bi1test1
         DataTable dataTable_Pareto = new DataTable();
 
   
-
         /*
         * Method     : BusinessIntelligenceCharts()
         * Description: 
@@ -47,7 +41,22 @@ namespace bi1test1
             InitializeComponent();
             InitializeCharts();
             InitializeDataGrids();
+            InitializeControlLimits(); 
 
+        }
+
+        /*
+         * Method     : InitializeControlLimits()
+         * Description: Assign initial values to control chart (strip lines) to provide a 
+         * guideline for user to start. 
+         * Parameters : N/A
+         * Returns    : N?A
+        */
+        private void InitializeControlLimits()
+        {
+            numericUpDown_ControlLine.Value = 35;
+            numericUpDown_UpperControlLimit.Value = 90;
+            numericUpDown_LowerControlLimit.Value = 10;
         }
 
         /*
@@ -87,21 +96,18 @@ namespace bi1test1
         private void InitializePieChart()
         {
             chart_PieChart.Titles.Add("Pie Chart");
-            chart_PieChart.Titles[0].Alignment = ContentAlignment.MiddleCenter;
-            //chart_PieChart.Titles.Add("Second");
+            chart_PieChart.Titles[0].Alignment = ContentAlignment.TopCenter;
             chart_PieChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
         }
 
         /*
         * Method     : InitializeControlChart()
-        * Description: 
+        * Description: Sourced from https://stackoverflow.com/questions/21990022/add-horizontal-line-to-chart-in-c-sharp
         * Parameters : N/A
         * Returns    : N?A
         */
         private void InitializeControlChart()
         {
-            // https://stackoverflow.com/questions/20673835/chart-control-data-series
-            // https://www.codeproject.com/Articles/796278/Control-Chart-Using-Net
             chart_ControlChart.Titles.Add("Control Chart");
 
             // rename series one 
@@ -110,16 +116,10 @@ namespace bi1test1
             // add circle style marks 
             chart_ControlChart.Series[0].MarkerStyle = MarkerStyle.Circle;
 
-            // Add average strip line to chart
-
-            //int value = Int32.Parse(textBox_Average.Text);
-
-         
-
+            // Add mean control line (using horizontal strip line) to chart
             StripLine stripline_ControlLine = new StripLine();
             stripline_ControlLine.Interval = 0;
             stripline_ControlLine.IntervalOffset = 50; // average value of the y axis; eg:
-            // get strip line on event change -- > 
             stripline_ControlLine.StripWidth = 1;
             stripline_ControlLine.BackColor = Color.Black;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_ControlLine);
@@ -127,40 +127,26 @@ namespace bi1test1
             // Add Lower Control Limit strip line to chart 
             StripLine stripline_LowerControlLimit = new StripLine();
             stripline_LowerControlLimit.Interval = 0;
-            stripline_LowerControlLimit.IntervalOffset = 5; // average value of the y axis; eg:
+            stripline_LowerControlLimit.IntervalOffset = 30; // average value of the y axis; eg:
             stripline_LowerControlLimit.StripWidth = 1;
-            stripline_LowerControlLimit.BackColor = Color.Red;
+            stripline_LowerControlLimit.BackColor = Color.Yellow;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_LowerControlLimit);
 
             // Add Upper Control Limit strip line to chart 
             StripLine stripline_UpperControlLimit = new StripLine();
-            stripline_LowerControlLimit.Interval = 0;
-            stripline_LowerControlLimit.IntervalOffset = 90; // average value of the y axis; eg:
-            stripline_LowerControlLimit.StripWidth = 1;
-            stripline_LowerControlLimit.BackColor = Color.Red;
+            stripline_UpperControlLimit.Interval = 0;
+            stripline_UpperControlLimit.IntervalOffset = 50; // average value of the y axis; eg:
+            stripline_UpperControlLimit.StripWidth = 1;
+            stripline_UpperControlLimit.BackColor = Color.Red;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_UpperControlLimit);
-
-
-            // make strip lines
-            // change 
-            // https://stackoverflow.com/questions/21990022/add-horizontal-line-to-chart-in-c-sharp
-
-            // get rid of x axis?
-            chart_ControlChart.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
 
             // x axis is called POINT PABELS
             // y axis is called TIME ORDER of PRoduction
 
+            // subscribe method to numericUpDown events to control strip lines on charts
             numericUpDown_ControlLine.ValueChanged += NumericUpDown_ControlLine_ValueChanged;
-
-        }
-
-        private void NumericUpDown_ControlLine_ValueChanged(object sender, EventArgs e)
-        {
-            decimal controlLineValue = numericUpDown_ControlLine.Value;
-            chart_ControlChart.ChartAreas[0].AxisY.StripLines[0].IntervalOffset = decimal.ToDouble(controlLineValue); // average value of the y axis; eg:
-            // figure out where to add in index 
-
+            numericUpDown_LowerControlLimit.ValueChanged += NumericUpDown_LowerControlLimit_ValueChanged;
+            numericUpDown_UpperControlLimit.ValueChanged += NumericUpDown_UpperControlLimit_ValueChanged;
         }
 
         /*
@@ -176,10 +162,11 @@ namespace bi1test1
 
             chart_ParetoChart.Titles.Add("Pareto Chart");
             chart_ParetoChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
-            // add series
+
 
             chart_ParetoChart.Series.Add("Target Line");
             chart_ParetoChart.Series["Target Line"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
         }
 
         /*
@@ -355,6 +342,43 @@ namespace bi1test1
             chart_ParetoChart.DataBind();
         }
 
+        /*
+        * Method     : 
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void NumericUpDown_UpperControlLimit_ValueChanged(object sender, EventArgs e)
+        {
+            decimal upperLineLimitValue = numericUpDown_UpperControlLimit.Value;
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines[0].IntervalOffset = decimal.ToDouble(upperLineLimitValue); // average value of the
+
+        }
+
+        /*
+        * Method     : 
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void NumericUpDown_LowerControlLimit_ValueChanged(object sender, EventArgs e)
+        {
+            decimal lowerLineLimitValue = numericUpDown_LowerControlLimit.Value;
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines[1].IntervalOffset = decimal.ToDouble(lowerLineLimitValue); // average value of the y axis; eg:
+        }
+
+        /*
+        * Method     : 
+        * Description: 
+        * Parameters : N/A
+        * Returns    : N?A
+        */
+        private void NumericUpDown_ControlLine_ValueChanged(object sender, EventArgs e)
+        {
+            decimal controlLineValue = numericUpDown_ControlLine.Value;
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines[2].IntervalOffset = decimal.ToDouble(controlLineValue); // average value of the y axis; eg:
+            // figure out where to add in index 
+        }
 
         /*
         * Method     : button_ClearCharts_Click()
