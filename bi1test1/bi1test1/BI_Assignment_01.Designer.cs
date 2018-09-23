@@ -48,9 +48,9 @@
             this.dataGridView_LineChart = new System.Windows.Forms.DataGridView();
             this.chart_LineChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage_ControlChart = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_LowerControlLimit = new System.Windows.Forms.Label();
+            this.label_UpperControlLimit = new System.Windows.Forms.Label();
+            this.label_ControlLine = new System.Windows.Forms.Label();
             this.numericUpDown_LowerControlLimit = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_UpperControlLimit = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_ControlLine = new System.Windows.Forms.NumericUpDown();
@@ -156,7 +156,7 @@
             this.chart_LineChart.Name = "chart_LineChart";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
-            series2.Name = "Series1";
+            series2.Name = "This Year Sales";
             this.chart_LineChart.Series.Add(series2);
             this.chart_LineChart.Size = new System.Drawing.Size(544, 378);
             this.chart_LineChart.TabIndex = 2;
@@ -164,9 +164,9 @@
             // 
             // tabPage_ControlChart
             // 
-            this.tabPage_ControlChart.Controls.Add(this.label3);
-            this.tabPage_ControlChart.Controls.Add(this.label2);
-            this.tabPage_ControlChart.Controls.Add(this.label1);
+            this.tabPage_ControlChart.Controls.Add(this.label_LowerControlLimit);
+            this.tabPage_ControlChart.Controls.Add(this.label_UpperControlLimit);
+            this.tabPage_ControlChart.Controls.Add(this.label_ControlLine);
             this.tabPage_ControlChart.Controls.Add(this.numericUpDown_LowerControlLimit);
             this.tabPage_ControlChart.Controls.Add(this.numericUpDown_UpperControlLimit);
             this.tabPage_ControlChart.Controls.Add(this.numericUpDown_ControlLine);
@@ -179,32 +179,32 @@
             this.tabPage_ControlChart.Text = "Control Chart";
             this.tabPage_ControlChart.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // label_LowerControlLimit
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(758, 166);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Lower Control Limit";
+            this.label_LowerControlLimit.AutoSize = true;
+            this.label_LowerControlLimit.Location = new System.Drawing.Point(758, 166);
+            this.label_LowerControlLimit.Name = "label_LowerControlLimit";
+            this.label_LowerControlLimit.Size = new System.Drawing.Size(96, 13);
+            this.label_LowerControlLimit.TabIndex = 10;
+            this.label_LowerControlLimit.Text = "Lower Control Limit";
             // 
-            // label2
+            // label_UpperControlLimit
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(757, 101);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Upper Control Limit";
+            this.label_UpperControlLimit.AutoSize = true;
+            this.label_UpperControlLimit.Location = new System.Drawing.Point(757, 101);
+            this.label_UpperControlLimit.Name = "label_UpperControlLimit";
+            this.label_UpperControlLimit.Size = new System.Drawing.Size(96, 13);
+            this.label_UpperControlLimit.TabIndex = 9;
+            this.label_UpperControlLimit.Text = "Upper Control Limit";
             // 
-            // label1
+            // label_ControlLine
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(758, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Control Line";
+            this.label_ControlLine.AutoSize = true;
+            this.label_ControlLine.Location = new System.Drawing.Point(758, 35);
+            this.label_ControlLine.Name = "label_ControlLine";
+            this.label_ControlLine.Size = new System.Drawing.Size(63, 13);
+            this.label_ControlLine.TabIndex = 8;
+            this.label_ControlLine.Text = "Control Line";
             // 
             // numericUpDown_LowerControlLimit
             // 
@@ -304,7 +304,7 @@
             this.Controls.Add(this.button_ClearCharts);
             this.Controls.Add(this.tabControl_Main);
             this.Name = "BusinessIntelligenceCharts";
-            this.Text = "Business Intelligence Chart Demo";
+            this.Text = "how";
             this.tabControl_Main.ResumeLayout(false);
             this.tabPage_PieChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_PieChart)).EndInit();
@@ -343,9 +343,9 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_ParetoChart;
         private System.Windows.Forms.Button button_ClearCharts;
         private System.Windows.Forms.NumericUpDown numericUpDown_ControlLine;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_LowerControlLimit;
+        private System.Windows.Forms.Label label_UpperControlLimit;
+        private System.Windows.Forms.Label label_ControlLine;
         private System.Windows.Forms.NumericUpDown numericUpDown_LowerControlLimit;
         private System.Windows.Forms.NumericUpDown numericUpDown_UpperControlLimit;
     }

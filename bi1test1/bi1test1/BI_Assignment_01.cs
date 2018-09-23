@@ -95,6 +95,7 @@ namespace bi1test1
         */
         private void InitializePieChart()
         {
+            chart_PieChart.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
             chart_PieChart.Titles.Add("Pie Chart");
             chart_PieChart.Titles[0].Alignment = ContentAlignment.TopCenter;
             chart_PieChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
@@ -108,6 +109,10 @@ namespace bi1test1
         */
         private void InitializeControlChart()
         {
+            label_ControlLine.ForeColor = System.Drawing.Color.Black;
+            label_LowerControlLimit.ForeColor = System.Drawing.Color.Green;
+            label_UpperControlLimit.ForeColor = System.Drawing.Color.Red;
+
             chart_ControlChart.Titles.Add("Control Chart");
 
             // rename series one 
@@ -119,7 +124,7 @@ namespace bi1test1
             // Add mean control line (using horizontal strip line) to chart
             StripLine stripline_ControlLine = new StripLine();
             stripline_ControlLine.Interval = 0;
-            stripline_ControlLine.IntervalOffset = 50; // average value of the y axis; eg:
+            stripline_ControlLine.IntervalOffset = 35; // average value of the y axis; eg:
             stripline_ControlLine.StripWidth = 1;
             stripline_ControlLine.BackColor = Color.Black;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_ControlLine);
@@ -127,21 +132,19 @@ namespace bi1test1
             // Add Lower Control Limit strip line to chart 
             StripLine stripline_LowerControlLimit = new StripLine();
             stripline_LowerControlLimit.Interval = 0;
-            stripline_LowerControlLimit.IntervalOffset = 30; // average value of the y axis; eg:
+            stripline_LowerControlLimit.IntervalOffset = 10; // average value of the y axis; eg:
             stripline_LowerControlLimit.StripWidth = 1;
-            stripline_LowerControlLimit.BackColor = Color.Yellow;
+            stripline_LowerControlLimit.BackColor = Color.Green;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_LowerControlLimit);
 
             // Add Upper Control Limit strip line to chart 
             StripLine stripline_UpperControlLimit = new StripLine();
             stripline_UpperControlLimit.Interval = 0;
-            stripline_UpperControlLimit.IntervalOffset = 50; // average value of the y axis; eg:
+            stripline_UpperControlLimit.IntervalOffset = 60; // average value of the y axis; eg:
             stripline_UpperControlLimit.StripWidth = 1;
             stripline_UpperControlLimit.BackColor = Color.Red;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_UpperControlLimit);
 
-            // x axis is called POINT PABELS
-            // y axis is called TIME ORDER of PRoduction
 
             // subscribe method to numericUpDown events to control strip lines on charts
             numericUpDown_ControlLine.ValueChanged += NumericUpDown_ControlLine_ValueChanged;
@@ -151,23 +154,26 @@ namespace bi1test1
 
         /*
         * Method     : InitializeParetoChart()
-        * Description: 
+        * Description: Based on example from 
         * Parameters : N/A
         * Returns    : N?A
         */
         private void InitializeParetoChart()
         {
-            //https://stackoverflow.com/questions/30662584/percent-value-in-y-axis-of-column-chart-microsoft-chart-control
-            //https://www.codeproject.com/Articles/802845/Pareto-Chart-Csharp
-
-            chart_ParetoChart.Titles.Add("Pareto Chart");
+            chart_ParetoChart.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+            //chart_ParetoChart.Titles.Add("Pareto Chart");
             chart_ParetoChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
-
 
             chart_ParetoChart.Series.Add("Target Line");
             chart_ParetoChart.Series["Target Line"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-
+            chart_ParetoChart.Series["Target Line"].IsValueShownAsLabel = true;
+            chart_ParetoChart.Series["Target Line"].MarkerColor = Color.Red;
+            chart_ParetoChart.Series["Target Line"].MarkerStyle = MarkerStyle.Circle;
+            chart_ParetoChart.Series["Target Line"].MarkerBorderColor = Color.MidnightBlue;
+            chart_ParetoChart.Series["Target Line"].MarkerSize = 8;
+            chart_ParetoChart.Series["Target Line"].LabelFormat = "0.#";  // format with one decimal and leading zero
         }
+
 
         /*
         * Method     : InitializeLineChart()
@@ -219,6 +225,10 @@ namespace bi1test1
             chart_LineChart.Series[0].XValueMember = "X";
             chart_LineChart.Series[0].YValueMembers = "Y";
 
+            // Label chart area axis 
+            chart_LineChart.ChartAreas[0].AxisX.Title = "Time";
+            chart_LineChart.ChartAreas[0].AxisY.Title = "Sales";
+
             dataTable_Line.Columns.Add("X");
             dataTable_Line.Columns.Add("Y");
 
@@ -231,9 +241,6 @@ namespace bi1test1
             chart_LineChart.DataBind();
             //// bind chart view to datasource as well
             //!!!! ondatachange event handler for row changed data table; 
-            ////dataGridView_LineChart.DataSource = dt.AutoGenerateColumns = false;
-            //dataGridView_LineChart.AutoSize = true;
-            //dataGridView_LineChart.DataSource = bindingSource1;
             dataTable_Line.RowChanged += Dt_RowChanged;
 
         }
@@ -249,6 +256,10 @@ namespace bi1test1
             chart_ControlChart.Series[0].XValueMember = "X";
             chart_ControlChart.Series[0].YValueMembers = "Y";
 
+            // Label chart area axis 
+            chart_ControlChart.ChartAreas[0].AxisX.Title = "Sample Number";
+            chart_ControlChart.ChartAreas[0].AxisY.Title = "Percent Recovery";
+
             dataTable_Control.Columns.Add("X");
             dataTable_Control.Columns.Add("Y");
 
@@ -262,10 +273,6 @@ namespace bi1test1
             chart_ControlChart.DataBind();
 
             dataTable_Control.RowChanged += DataTable_Control_RowChanged;
-
-            // strip line 
-
-
         }
 
         /*
@@ -276,11 +283,17 @@ namespace bi1test1
         */
         private void initializeDataGridView_ParetoChart()
         {
+            // Set Pareto "column" chart 
             chart_ParetoChart.Series[0].XValueMember = "X";
             chart_ParetoChart.Series[0].YValueMembers = "Y";
 
+            // Label chart area axis 
+            chart_ParetoChart.ChartAreas[0].AxisX.Title = "Time";
+            chart_ParetoChart.ChartAreas[0].AxisY.Title = "Sales";
+
             dataTable_Pareto.Columns.Add("X");
             dataTable_Pareto.Columns.Add("Y");
+           
 
             dataGridView_ParetoChart.Anchor = AnchorStyles.Top;
             dataGridView_ParetoChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -288,8 +301,10 @@ namespace bi1test1
             dataGridView_ParetoChart.DataSource = dataTable_Pareto;
             chart_ParetoChart.DataSource = dataTable_Pareto;
 
+           
             // Bind data 
             chart_ParetoChart.DataBind();
+           
 
             dataTable_Pareto.RowChanged += DataTable_Pareto_RowChanged;
         }
@@ -331,6 +346,8 @@ namespace bi1test1
             chart_ControlChart.DataBind();
         }
 
+       
+
         /*
         * Method     : DataTable_Pareto_RowChanged()
         * Description: 
@@ -339,9 +356,46 @@ namespace bi1test1
         */
         private void DataTable_Pareto_RowChanged(object sender, DataRowChangeEventArgs e)
         {
+
+
+            // sort the data in the series to be by values in descending order
+            chart_ParetoChart.DataManipulator.Sort(PointSortOrder.Descending, "Series1");
+
+            // find the total of all points in the source series
+            double total = 0.0;
+            foreach (DataPoint pt in chart_ParetoChart.Series[0].Points)
+                total += pt.YValues[0];
+
+            // set the max value on the primary axis to total
+            chart_ParetoChart.ChartAreas["ChartArea1"].AxisY.Maximum = total;
+
+
+            // assign the series to the same chart area as the column chart
+            chart_ParetoChart.Series["Target Line"].ChartArea = chart_ParetoChart.Series[0].ChartArea;
+
+            // Set Pareto "target line" component 
+            chart_ParetoChart.Series["Target Line"].YAxisType = AxisType.Secondary;
+            chart_ParetoChart.ChartAreas[0].AxisY2.Maximum = 100;
+
+            // locale specific percentage format with no decimals
+            chart_ParetoChart.ChartAreas[0].AxisY2.LabelStyle.Format = "P0";
+
+            // turn off the end point values of the primary X axis
+            //chart_ParetoChart.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = false;
+
+            // for each point in the source series find % of total and assign to series
+            double percentage = 0.0;
+
+            foreach (DataPoint pt in chart_ParetoChart.Series[0].Points)
+            {
+                percentage += (pt.YValues[0] / total * 100.0);
+                chart_ParetoChart.Series["Target Line"].Points.Add(Math.Round(percentage, 2));
+            }
+
             chart_ParetoChart.DataBind();
         }
 
+       
         /*
         * Method     : 
         * Description: 
