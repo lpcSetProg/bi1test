@@ -4,8 +4,9 @@
 * PROGRAMMERS : Lev Cocarell
 * FIRST VERSION : 2018-09-12
 * DESCRIPTION :
-* This file contains the source code for the 
-* TITLE LEGEND
+* This file contains the source code for an Win Forms application that demonstrates the 
+* use of the Chart control to visualize data. It demonstrates the following four charts: pie chart,
+* line chart, control chart, Pareto Diagram.
 */
 
 using System;
@@ -29,7 +30,7 @@ namespace bi1test1
         * Method     : BusinessIntelligenceCharts()
         * Description: 
         * Parameters : N/A
-        * Returns    : N?A
+        * Returns    : N/A
         */
         public BusinessIntelligenceCharts()
         {
@@ -42,23 +43,9 @@ namespace bi1test1
             InitializeCharts();
             InitializeDataGrids();
             InitializeControlLimits(); 
-
         }
 
-        /*
-         * Method     : InitializeControlLimits()
-         * Description: Assign initial values to control chart (strip lines) to provide a 
-         * guideline for user to start. 
-         * Parameters : N/A
-         * Returns    : N?A
-        */
-        private void InitializeControlLimits()
-        {
-            numericUpDown_ControlLine.Value = 35;
-            numericUpDown_UpperControlLimit.Value = 90;
-            numericUpDown_LowerControlLimit.Value = 10;
-        }
-
+      
         /*
         * Method     : InitializeCharts()
         * Description: 
@@ -103,7 +90,7 @@ namespace bi1test1
 
         /*
         * Method     : InitializeControlChart()
-        * Description: Sourced from https://stackoverflow.com/questions/21990022/add-horizontal-line-to-chart-in-c-sharp
+        * Description: In ortder to initialize the control chart, I used horizontal strip lines Sourced from https://stackoverflow.com/questions/21990022/add-horizontal-line-to-chart-in-c-sharp
         * Parameters : N/A
         * Returns    : N?A
         */
@@ -121,10 +108,10 @@ namespace bi1test1
             // add circle style marks 
             chart_ControlChart.Series[0].MarkerStyle = MarkerStyle.Circle;
 
-            // Add mean control line (using horizontal strip line) to chart
+            // Add center control line (using horizontal strip line) to chart
             StripLine stripline_ControlLine = new StripLine();
             stripline_ControlLine.Interval = 0;
-            stripline_ControlLine.IntervalOffset = 35; // average value of the y axis; eg:
+            stripline_ControlLine.IntervalOffset = 35;
             stripline_ControlLine.StripWidth = 1;
             stripline_ControlLine.BackColor = Color.Black;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_ControlLine);
@@ -132,7 +119,7 @@ namespace bi1test1
             // Add Lower Control Limit strip line to chart 
             StripLine stripline_LowerControlLimit = new StripLine();
             stripline_LowerControlLimit.Interval = 0;
-            stripline_LowerControlLimit.IntervalOffset = 10; // average value of the y axis; eg:
+            stripline_LowerControlLimit.IntervalOffset = 10;
             stripline_LowerControlLimit.StripWidth = 1;
             stripline_LowerControlLimit.BackColor = Color.Green;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_LowerControlLimit);
@@ -140,11 +127,10 @@ namespace bi1test1
             // Add Upper Control Limit strip line to chart 
             StripLine stripline_UpperControlLimit = new StripLine();
             stripline_UpperControlLimit.Interval = 0;
-            stripline_UpperControlLimit.IntervalOffset = 60; // average value of the y axis; eg:
+            stripline_UpperControlLimit.IntervalOffset = 60; 
             stripline_UpperControlLimit.StripWidth = 1;
             stripline_UpperControlLimit.BackColor = Color.Red;
             chart_ControlChart.ChartAreas[0].AxisY.StripLines.Add(stripline_UpperControlLimit);
-
 
             // subscribe method to numericUpDown events to control strip lines on charts
             numericUpDown_ControlLine.ValueChanged += NumericUpDown_ControlLine_ValueChanged;
@@ -153,18 +139,38 @@ namespace bi1test1
         }
 
         /*
+         * Method     : InitializeControlLimits()
+         * Description: Assign initial values to control chart (strip lines) to provide a 
+         * guideline for user to start. 
+         * Parameters : N/A
+         * Returns    : N?A
+        */
+        private void InitializeControlLimits()
+        {
+            numericUpDown_ControlLine.Value = 45;
+            numericUpDown_UpperControlLimit.Value = 90;
+            numericUpDown_LowerControlLimit.Value = 10;
+        }
+
+        /*
         * Method     : InitializeParetoChart()
-        * Description: Based on example from 
+        * Description: Add series to chart which will be used to construct Pareto chart. Based on example from
+        * Microsoft : 
         * Parameters : N/A
-        * Returns    : N?A
+        * Returns    : N/A
         */
         private void InitializeParetoChart()
         {
+            // Add visual effects to Pareto chart 
             chart_ParetoChart.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
-            //chart_ParetoChart.Titles.Add("Pareto Chart");
+         
+            // Ensure source chart for Pareto is a column chart 
             chart_ParetoChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
 
+            // Add other series (Target Line) to chart 
             chart_ParetoChart.Series.Add("Target Line");
+
+            // Format appearance of 'control line'
             chart_ParetoChart.Series["Target Line"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             chart_ParetoChart.Series["Target Line"].IsValueShownAsLabel = true;
             chart_ParetoChart.Series["Target Line"].MarkerColor = Color.Red;
@@ -177,7 +183,7 @@ namespace bi1test1
 
         /*
         * Method     : InitializeLineChart()
-        * Description: 
+        * Description: Format and set chart as a line chart.
         * Parameters : N/A
         * Returns    : N?A
         */
@@ -205,6 +211,7 @@ namespace bi1test1
             dataGridView_PieChart.Anchor = AnchorStyles.Top;
             dataGridView_PieChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // connect data grid view control to data
             dataGridView_PieChart.DataSource = dataTable_Pie;
             chart_PieChart.DataSource = dataTable_Pie;
 
@@ -235,12 +242,15 @@ namespace bi1test1
             dataGridView_LineChart.Anchor = AnchorStyles.Top;
             dataGridView_LineChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // connect data grid view control to data
             dataGridView_LineChart.DataSource = dataTable_Line;
+
+            // bind chart view to datasource as well
             chart_LineChart.DataSource = dataTable_Line;
 
             chart_LineChart.DataBind();
-            //// bind chart view to datasource as well
-            //!!!! ondatachange event handler for row changed data table; 
+       
+            // add a RowChanging event handler for the table 
             dataTable_Line.RowChanged += Dt_RowChanged;
 
         }
@@ -266,12 +276,14 @@ namespace bi1test1
             dataGridView_ControlChart.Anchor = AnchorStyles.Top;
             dataGridView_ControlChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // connect data grid view control to data
             dataGridView_ControlChart.DataSource = dataTable_Control;
             chart_ControlChart.DataSource = dataTable_Control;
 
             // Bind data 
             chart_ControlChart.DataBind();
 
+            // add a RowChanging event handler for the table 
             dataTable_Control.RowChanged += DataTable_Control_RowChanged;
         }
 
@@ -298,14 +310,15 @@ namespace bi1test1
             dataGridView_ParetoChart.Anchor = AnchorStyles.Top;
             dataGridView_ParetoChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // connect data grid view control to data 
             dataGridView_ParetoChart.DataSource = dataTable_Pareto;
             chart_ParetoChart.DataSource = dataTable_Pareto;
 
            
             // Bind data 
             chart_ParetoChart.DataBind();
-           
 
+            // add a RowChanging event handler for the table 
             dataTable_Pareto.RowChanged += DataTable_Pareto_RowChanged;
         }
 
@@ -314,21 +327,16 @@ namespace bi1test1
 
         /*
         * Method     : DT_RowChanged()
-        * Description: 
-        * Parameters : N/A
-        * Returns    : N?A
+        * Description: Bind data on row changing event. 
         */
         private void Dt_RowChanged(object sender, DataRowChangeEventArgs e)
         {
             chart_LineChart.DataBind();
-            //throw new System.NotImplementedException();
         }
 
         /*
         * Method     : DataTable_Pie_RowChanged()
-        * Description: 
-        * Parameters : N/A
-        * Returns    : N?A
+        * Description: Bind data on row changing event. 
         */
         private void DataTable_Pie_RowChanged(object sender, DataRowChangeEventArgs e)
         {
@@ -337,7 +345,7 @@ namespace bi1test1
 
         /*
        * Method     : DataTable_Control_RowChanged()
-       * Description: 
+       * Description: Bind data on row changing event. 
        * Parameters : N/A
        * Returns    : N?A
        */
@@ -346,18 +354,16 @@ namespace bi1test1
             chart_ControlChart.DataBind();
         }
 
-       
+
 
         /*
         * Method     : DataTable_Pareto_RowChanged()
-        * Description: 
+        * Description: Bind data on row changing event. Sourced from example from ___ 
         * Parameters : N/A
         * Returns    : N?A
         */
         private void DataTable_Pareto_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-
-
             // sort the data in the series to be by values in descending order
             chart_ParetoChart.DataManipulator.Sort(PointSortOrder.Descending, "Series1");
 
@@ -368,7 +374,6 @@ namespace bi1test1
 
             // set the max value on the primary axis to total
             chart_ParetoChart.ChartAreas["ChartArea1"].AxisY.Maximum = total;
-
 
             // assign the series to the same chart area as the column chart
             chart_ParetoChart.Series["Target Line"].ChartArea = chart_ParetoChart.Series[0].ChartArea;
@@ -381,13 +386,14 @@ namespace bi1test1
             chart_ParetoChart.ChartAreas[0].AxisY2.LabelStyle.Format = "P0";
 
             // turn off the end point values of the primary X axis
-            //chart_ParetoChart.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = false;
+            chart_ParetoChart.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = false;
 
             // for each point in the source series find % of total and assign to series
             double percentage = 0.0;
 
             foreach (DataPoint pt in chart_ParetoChart.Series[0].Points)
             {
+                // data point y values 
                 percentage += (pt.YValues[0] / total * 100.0);
                 chart_ParetoChart.Series["Target Line"].Points.Add(Math.Round(percentage, 2));
             }
@@ -395,17 +401,17 @@ namespace bi1test1
             chart_ParetoChart.DataBind();
         }
 
-       
+
         /*
         * Method     : 
-        * Description: 
+        * Description: NumericUpDown_UpperControlLimit_ValueChanged
         * Parameters : N/A
         * Returns    : N?A
         */
         private void NumericUpDown_UpperControlLimit_ValueChanged(object sender, EventArgs e)
         {
             decimal upperLineLimitValue = numericUpDown_UpperControlLimit.Value;
-            chart_ControlChart.ChartAreas[0].AxisY.StripLines[0].IntervalOffset = decimal.ToDouble(upperLineLimitValue); // average value of the
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines[2].IntervalOffset = decimal.ToDouble(upperLineLimitValue); // average value of the
 
         }
 
@@ -430,7 +436,7 @@ namespace bi1test1
         private void NumericUpDown_ControlLine_ValueChanged(object sender, EventArgs e)
         {
             decimal controlLineValue = numericUpDown_ControlLine.Value;
-            chart_ControlChart.ChartAreas[0].AxisY.StripLines[2].IntervalOffset = decimal.ToDouble(controlLineValue); // average value of the y axis; eg:
+            chart_ControlChart.ChartAreas[0].AxisY.StripLines[0].IntervalOffset = decimal.ToDouble(controlLineValue); // average value of the y axis; eg:
             // figure out where to add in index 
         }
 

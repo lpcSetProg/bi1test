@@ -245,7 +245,7 @@
             this.chart_ControlChart.Name = "chart_ControlChart";
             series3.ChartArea = "ChartArea1";
             series3.Legend = "Legend1";
-            series3.Name = "Series1";
+            series3.Name = "Trend";
             this.chart_ControlChart.Series.Add(series3);
             this.chart_ControlChart.Size = new System.Drawing.Size(489, 378);
             this.chart_ControlChart.TabIndex = 2;
@@ -304,7 +304,7 @@
             this.Controls.Add(this.button_ClearCharts);
             this.Controls.Add(this.tabControl_Main);
             this.Name = "BusinessIntelligenceCharts";
-            this.Text = "how";
+            this.Text = "Business Intelligence Chart Demo";
             this.tabControl_Main.ResumeLayout(false);
             this.tabPage_PieChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_PieChart)).EndInit();
