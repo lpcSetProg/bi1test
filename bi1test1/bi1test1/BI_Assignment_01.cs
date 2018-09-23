@@ -10,6 +10,7 @@
 */
 
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -160,10 +161,7 @@ namespace bi1test1
         * Returns    : N/A
         */
         private void InitializeParetoChart()
-        {
-            // Add visual effects to Pareto chart 
-            chart_ParetoChart.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
-         
+        { 
             // Ensure source chart for Pareto is a column chart 
             chart_ParetoChart.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
 
@@ -305,7 +303,7 @@ namespace bi1test1
 
             dataTable_Pareto.Columns.Add("X");
             dataTable_Pareto.Columns.Add("Y");
-           
+
 
             dataGridView_ParetoChart.Anchor = AnchorStyles.Top;
             dataGridView_ParetoChart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -314,9 +312,9 @@ namespace bi1test1
             dataGridView_ParetoChart.DataSource = dataTable_Pareto;
             chart_ParetoChart.DataSource = dataTable_Pareto;
 
-           
             // Bind data 
             chart_ParetoChart.DataBind();
+            chart_ParetoChart.DataManipulator.Sort(PointSortOrder.Descending, "Series1");
 
             // add a RowChanging event handler for the table 
             dataTable_Pareto.RowChanged += DataTable_Pareto_RowChanged;
@@ -345,7 +343,7 @@ namespace bi1test1
 
         /*
        * Method     : DataTable_Control_RowChanged()
-       * Description: Bind data on row changing event. 
+       * Description: Bind data on row changing event. Buit on example from: 
        * Parameters : N/A
        * Returns    : N?A
        */
@@ -355,18 +353,8 @@ namespace bi1test1
         }
 
 
-
-        /*
-        * Method     : DataTable_Pareto_RowChanged()
-        * Description: Bind data on row changing event. Sourced from example from ___ 
-        * Parameters : N/A
-        * Returns    : N?A
-        */
-        private void DataTable_Pareto_RowChanged(object sender, DataRowChangeEventArgs e)
+        private void calculateParetoTargetLine()
         {
-            // sort the data in the series to be by values in descending order
-            chart_ParetoChart.DataManipulator.Sort(PointSortOrder.Descending, "Series1");
-
             // find the total of all points in the source series
             double total = 0.0;
             foreach (DataPoint pt in chart_ParetoChart.Series[0].Points)
@@ -388,9 +376,13 @@ namespace bi1test1
             // turn off the end point values of the primary X axis
             chart_ParetoChart.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = false;
 
+            chart_ParetoChart.Series["Target Line"].Points.Clear();
+
+
             // for each point in the source series find % of total and assign to series
             double percentage = 0.0;
 
+            // for every point in series 1 in you have a point in series 2 
             foreach (DataPoint pt in chart_ParetoChart.Series[0].Points)
             {
                 // data point y values 
@@ -398,7 +390,26 @@ namespace bi1test1
                 chart_ParetoChart.Series["Target Line"].Points.Add(Math.Round(percentage, 2));
             }
 
+            
+        }
+
+
+        /*
+        * Method     : DataTable_Pareto_RowChanged()
+        * Description: Bind data on row changing event. Sourced from example from ___ 
+        * Parameters : N/A
+        * Returns    : N/A
+        */
+        private void DataTable_Pareto_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+
+            calculateParetoTargetLine();
             chart_ParetoChart.DataBind();
+            // sort the data in the series to be by values in descending order
+            chart_ParetoChart.DataManipulator.Sort(PointSortOrder.Descending, "Series1");
+
+            //dataTable_Pareto.Rows.Clear();
+            //chart_ParetoChart.DataBind();
         }
 
 
